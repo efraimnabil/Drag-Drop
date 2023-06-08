@@ -3,19 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <link href = "style.css" rel = "stylesheet" type = "text/css"> <!-- Link to CSS file -->
+    <link href="style.css" rel="stylesheet" type="text/css"> <!-- Link to CSS file -->
 </head>
 
 <body>
-    <!-- 
-        1. Implement a drag and drop functionality using HTML, CSS, and JavaScript.
-        2. Create two containers (e.g., div elements) side by side on the page.
-        3. Populate the first container with a list of items (e.g., images, text, or icons).
-        4. Allow users to drag and drop items from the first container to the second container.
-        5. Provide visual feedback during dragging (e.g., change the appearance of the dragged item).
-        6. When an item is dropped into the second container, display a success message or update the UI in any appropriate way.
-        7. Add a reset button to clear the second container and reset the first container to its original state.
-     -->
+
     <div class="all">
         <header class="header-container">
             <section class="header">
@@ -23,32 +15,31 @@
                 <p>Drag and drop the animals into the second garden</p>
             </section>
             <section class="containers-btn">
-                <button class="reset">Reset</button>
+                <button class="reset">Reset</button> <!-- Reset button to clear the second container and reset the first container -->
             </section>
         </header>
-        <section class = "containers">
-            <div class = "container" id = "container1">
-                <div class = "item" draggable = "true" id = "item1">
-                    <img src = "images/1.png" alt = "item1">
+        <section class="containers">
+            <div class="container" id="container1">
+                <!-- Items in the first container (drag source) -->
+                <div class="item" draggable="true" id="item1">
+                    <img src="images/1.png" alt="item1">
                 </div>
-                <div class = "item" draggable = "true" id = "item2">
-                    <img src = "images/2.png" alt = "item2">
+                <div class="item" draggable="true" id="item2">
+                    <img src="images/2.png" alt="item2">
                 </div>
-                <div class = "item" draggable = "true" id = "item3">
-                    <img src = "images/3.png" alt = "item3">
+                <div class="item" draggable="true" id="item3">
+                    <img src="images/3.png" alt="item3">
                 </div>
-                <div class = "item" draggable = "true" id = "item4">
-                    <img src = "images/4.png" alt = "item4">
+                <div class="item" draggable="true" id="item4">
+                    <img src="images/4.png" alt="item4">
                 </div>
-                <div class = "item" draggable = "true" id = "item5">
-                    <img src = "images/5.png" alt = "item5">
+                <div class="item" draggable="true" id="item5">
+                    <img src="images/5.png" alt="item5">
                 </div>
-                </div>
-            <div class = "container" id = "container2"></div>
-            
+            </div>
+            <div class="container" id="container2"></div> <!-- Second container (drop target) -->
         </section>
     </div>
-    <script src="script.js"></script>
+    <script src="script.js"></script> <!-- Link to JavaScript file -->
 </body>
-
 </html>

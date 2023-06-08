@@ -1,59 +1,80 @@
-/*
-1. Implement a drag and drop functionality using HTML, CSS, and JavaScript.
-        2. Create two containers (e.g., div elements) side by side on the page.
-        3. Populate the first container with a list of items (e.g., images, text, or icons).
-        4. Allow users to drag and drop items from the first container to the second container.
-        5. Provide visual feedback during dragging (e.g., change the appearance of the dragged item).
-        6. When an item is dropped into the second container, display a success message or update the UI in any appropriate way.
-        7. Add a reset button to clear the second container and reset the first container to its original state.
- */
-
+// Get references to containers and items
 const containers = document.querySelectorAll(".container");
-
 const items = document.querySelectorAll(".item");
 
+// Add event listeners to containers
 containers.forEach((container) => {
-    container.addEventListener("dragover", (e) => {
-        e.preventDefault();
-        container.classList.add("hovered");
-    });
+  // Allow dropping items
+  container.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    container.classList.add("hovered");
+  });
 
-    container.addEventListener("dragleave", () => {
-        container.classList.remove("hovered");
-    });
-    container.addEventListener("drop", (e) => {
-        container.classList.remove("hovered");
-        const item = document.querySelector(".dragging");
-        if (container.id === "container2") {
-            container.appendChild(item);
-        }
-        else if (container.id === "container1") {
-            container.appendChild(item);
-        }
-    });
+  // Remove hover effect when leaving container
+  container.addEventListener("dragleave", () => {
+    container.classList.remove("hovered");
+  });
+
+  // Handle item drop
+  container.addEventListener("drop", (e) => {
+    container.classList.remove("hovered");
+    const item = document.querySelector(".dragging");
+    if (container.id === "container2") {
+      container.appendChild(item);
+    } else if (container.id === "container1") {
+      container.appendChild(item);
+    }
+  });
 });
 
-
+// Add event listeners to items
 items.forEach((item) => {
-    item.addEventListener("dragstart", () => {
-        item.classList.add("dragging");
-    });
+  // Set dragging state
+  item.addEventListener("dragstart", () => {
+    item.classList.add("dragging");
+  });
 
-    item.addEventListener("dragend", () => {
-        item.classList.remove("dragging");
-    });
+  // Remove dragging state
+  item.addEventListener("dragend", () => {
+    item.classList.remove("dragging");
+  });
+
+  // Handle touch-based dragging (for mobile)
+  item.addEventListener("touchstart", (e) => {
+    item.classList.add("dragging");
+    const touch = e.targetTouches[0];
+    item.initialTouchX = touch.clientX;
+    item.initialTouchY = touch.clientY;
+  });
+
+  item.addEventListener("touchmove", (e) => {
+    e.preventDefault();
+    const touch = e.targetTouches[0];
+    const offsetX = touch.clientX - item.initialTouchX;
+    const offsetY = touch.clientY - item.initialTouchY;
+    item.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+  });
+
+  item.addEventListener("touchend", (e) => {
+    item.classList.remove("dragging");
+    item.style.transform = "none";
+
+    const touch = e.changedTouches[0];
+    const container = document.elementFromPoint(touch.clientX, touch.clientY);
+    if (container && container.classList.contains("container")) {
+      container.appendChild(item);
+    }
+  });
 });
 
+// Reset button functionality
 const resetButton = document.querySelector(".reset");
 resetButton.addEventListener("click", () => {
-    /* put all items back in container1 */
-    const container1 = document.querySelector("#container1");
-    const container2 = document.querySelector("#container2");
-    const items = document.querySelectorAll(".item");
-    items.forEach((item) => {
-        container1.appendChild(item);
-    }
-    );
-    /* clear container2 */
-    container2.innerHTML = "";
+  const container1 = document.querySelector("#container1");
+  const container2 = document.querySelector("#container2");
+  const items = document.querySelectorAll(".item");
+  items.forEach((item) => {
+    container1.appendChild(item);
+  });
+  container2.innerHTML = "";
 });
